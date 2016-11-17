@@ -34,6 +34,7 @@ export class MenuAsideComponent implements OnInit {
         {
           "title": "ng2-admin-lte",
           "link": 'https://github.com/TwanoO67/ng2-admin-lte',
+	  "external": true,
 	  "target": "_blank"
         },
         {
