@@ -1,0 +1,28 @@
+<div class = "yyy">
+	<div class="xxx" *ngFor='let device of devices'>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="onoffswitch">
+					<input type="checkbox"
+	    					name="onoffswitch"
+	  					class="onoffswitch-checkbox"
+						[id]="'reg_'+device.deviceID"
+						[checked]="device.registered"
+						(click)="toggleRegistered(device)"
+					>
+					<label class="onoffswitch-label" [for]="'reg_'+device.deviceID">
+						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
+				</div>
+			</div>
+			<div class="col-md-3"> {{ device.deviceID }} </div>
+			<div class="col-md-3"> {{ device.name }} </div>
+			<div class="col-md-3">
+				<button type="button"
+					class="btn btn-danger"
+					(click)="delete(device._id)">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>

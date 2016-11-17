@@ -18,6 +18,16 @@ export class MenuAsideComponent implements OnInit {
       "link": ['/']
     },
     {
+      "title": "Admin",
+      "icon": "dashboard",
+      "sublinks": [
+        {
+          "title": "Device Registration",
+          "link": ['/page/device-reg']
+        }
+      ]
+    },
+    {
       "title": "Client",
       "icon": "usd",
       "link": ['/client']

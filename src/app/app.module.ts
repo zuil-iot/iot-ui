@@ -64,11 +64,13 @@ let pages = [
 //main bootstrap
 import { AppComponent } from './app.component';
 import { routing } from './app.routes';
+import { DeviceRegComponent } from './pages/device-reg/device-reg.component';
 
 @NgModule({
   declarations: [
     ...widgets,
-    ...pages
+    ...pages,
+    DeviceRegComponent
   ],
   imports: [
     ...modules,
