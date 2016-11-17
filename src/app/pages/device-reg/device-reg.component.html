@@ -1,28 +1,39 @@
-<div class = "yyy">
-	<div class="xxx" *ngFor='let device of devices'>
-		<div class="row">
-			<div class="col-md-3">
-				<div class="onoffswitch">
-					<input type="checkbox"
-	    					name="onoffswitch"
-	  					class="onoffswitch-checkbox"
-						[id]="'reg_'+device.deviceID"
-						[checked]="device.registered"
-						(click)="toggleRegistered(device)"
-					>
-					<label class="onoffswitch-label" [for]="'reg_'+device.deviceID">
-						<span class="onoffswitch-inner"></span>
-						<span class="onoffswitch-switch"></span>
-					</label>
-				</div>
-			</div>
-			<div class="col-md-3"> {{ device.deviceID }} </div>
-			<div class="col-md-3"> {{ device.name }} </div>
-			<div class="col-md-3">
-				<button type="button"
-					class="btn btn-danger"
-					(click)="delete(device._id)">Delete</button>
-			</div>
+<div class="col_headers">
+	<div class="row">
+		<div class="col-md-1"><b>Register</b></div>
+		<div class="col-md-1"><b>Registered</b></div>
+		<div class="col-md-1"><b>Device ID</b></div>
+		<div class="col-md-1"><b>Alias</b></div>
+		<div class="col-md-2"><b>New Alias</b></div>
+		<div class="col-md-1"><b>Update</b></div>
+		<div class="col-md-1"><b>Delete</b></div>
+	</div>
+</div>
+<div class="device_list" *ngFor='let device of devices'>
+	<div class="row">
+		<div class="col-md-1"><app-toggle-switch [div_id]="'reg_'+device.deviceID" [is_checked]="device.registered" (toggle)="toggleRegistered(device)"></app-toggle-switch></div>
+		<div class="col-md-1"> {{ device.registered }} </div>
+		<div class="col-md-1"> {{ device.deviceID }} </div>
+		<div class="col-md-1"> {{ device.alias }} </div>
+		<div class="col-md-2">
+			<input type="text" #tmpalias
+				(keyup.enter)="updateAlias(device,tmpalias.value)"
+			>
+		</div>
+		<div class="col-md-1">
+			<button type="button"
+				class="btn btn-sm btn-info"
+				(click)="updateAlias(device,tmpalias.value)"
+			>
+					Update Alias
+			</button>
+		</div>
+		<div class="col-md-1">
+			<button type="button"
+				class="btn btn-sm btn-danger"
+				(click)="delete(device._id)">
+					Delete
+			</button>
 		</div>
 	</div>
 </div>

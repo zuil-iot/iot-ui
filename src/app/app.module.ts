@@ -25,7 +25,8 @@ import { MenuAsideComponent } from "./widgets/menu-aside";
 import { MessagesBoxComponent} from "./widgets/messages-box";
 import { NotificationBoxComponent } from "./widgets/notification-box";
 import { TasksBoxComponent } from "./widgets/tasks-box";
-import { UserBoxComponent } from "./widgets/user-box"
+import { UserBoxComponent } from "./widgets/user-box";
+import { ToggleSwitchComponent } from './widgets/toggle-switch/toggle-switch.component';
 
 let widgets = [
   AppComponent,
@@ -34,7 +35,8 @@ let widgets = [
   MessagesBoxComponent,
   NotificationBoxComponent,
   TasksBoxComponent,
-  UserBoxComponent
+  UserBoxComponent,
+  ToggleSwitchComponent
 ];
 
 import { UserService } from "./services/user.service";
@@ -54,23 +56,23 @@ let services =  [
 import { HomeComponent } from './pages/home/home.component';
 import { PageNumComponent } from './pages/page-num/page-num.component';
 import { ClientComponent } from './pages/client/client.component';
+import { DeviceRegComponent } from './pages/device-reg/device-reg.component';
 
 let pages = [
   HomeComponent,
   PageNumComponent,
   ClientComponent,
+  DeviceRegComponent
 ]
 
 //main bootstrap
 import { AppComponent } from './app.component';
 import { routing } from './app.routes';
-import { DeviceRegComponent } from './pages/device-reg/device-reg.component';
 
 @NgModule({
   declarations: [
     ...widgets,
     ...pages,
-    DeviceRegComponent
   ],
   imports: [
     ...modules,

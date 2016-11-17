@@ -18,12 +18,29 @@ export class MenuAsideComponent implements OnInit {
       "link": ['/']
     },
     {
-      "title": "Admin",
-      "icon": "dashboard",
+      "title": "Devices",
+      "icon": "snowflake-o",
       "sublinks": [
         {
           "title": "Device Registration",
           "link": ['/page/device-reg']
+        }
+      ]
+    },
+    {
+      "title": "Documentation",
+      "icon": "book",
+      "sublinks": [
+        {
+          "title": "ng2-admin-lte",
+          "link": 'https://github.com/TwanoO67/ng2-admin-lte',
+	  "target": "_blank"
+        },
+        {
+          "title": "Bootstrap 3",
+          "link": ['http://bootstrapdocs.com/v3.0.3/docs/'],
+	  "external": true,
+	  "target": "_blank"
         }
       ]
     },
