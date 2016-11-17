@@ -14,7 +14,7 @@ export const environment = {
     messagingSenderId: "201342590340"
   },
   auth0: {
-    clientID: 'HEkxSwd54g8LXfr3P8g72tvmckSIF0KC',
-    domain: 'ng2-admin-lte.eu.auth0.com'
+    clientID: '2eoGL34nDRULPg3WBuMaVlVQtX9gn3mP',
+    domain: 'zuli.auth0.com'
   }
 };
