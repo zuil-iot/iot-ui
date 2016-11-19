@@ -28,15 +28,12 @@ export class DeviceRegComponent implements OnInit {
 		this.devicesService.register(id,newReg).subscribe(data => {
 			d.config.registered = newReg;
 			console.log("Toggle Registered: ",d.deviceID, " to ",d.config.registered);
-		})
+		});
 	}
-	updateAlias(d,newAlias) {
-		var tmpItem = d;
-		tmpItem.alias = newAlias;
-//		this.service.update(tmpItem).subscribe(data => {
-			d.alias = tmpItem.alias;
-			console.log("Update Alias for: ",d.deviceID, " to ",d.alias);
-//		}
+	updateAlias(d) {
+		this.devicesService.setAlias(d._id,d.config.alias).subscribe(data => {
+			console.log("Update Alias for: ",d.deviceID, " to ",d.config.alias);
+		});
 	}
 	delete(id) {
 		console.log("Delete: ",id);

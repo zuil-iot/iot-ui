@@ -3,9 +3,7 @@
 		<div class="col-md-1"><b>Register</b></div>
 		<div class="col-md-1"><b>Registered</b></div>
 		<div class="col-md-1"><b>Device ID</b></div>
-		<div class="col-md-1"><b>Alias</b></div>
-		<div class="col-md-2"><b>New Alias</b></div>
-		<div class="col-md-1"><b>Update</b></div>
+		<div class="col-md-2"><b>Alias</b></div>
 		<div class="col-md-1"><b>Delete</b></div>
 	</div>
 </div>
@@ -18,19 +16,10 @@
 			></app-toggle-switch></div>
 		<div class="col-md-1"> {{ device.config.registered }} </div>
 		<div class="col-md-1"> {{ device.deviceID }} </div>
-		<div class="col-md-1"> {{ device.config.alias }} </div>
 		<div class="col-md-2">
-			<input type="text" #tmpalias
-				(keyup.enter)="updateAlias(device,tmpalias.value)"
+			<input type="text" [(ngModel)]="device.config.alias"
+				(keyup.enter)="updateAlias(device)"
 			>
-		</div>
-		<div class="col-md-1">
-			<button type="button"
-				class="btn btn-sm btn-info"
-				(click)="updateAlias(device,tmpalias.value)"
-			>
-					Update Alias
-			</button>
 		</div>
 		<div class="col-md-1">
 			<button type="button"

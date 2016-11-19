@@ -27,8 +27,11 @@ export class DevicesService {
 			.map(res => res.json());
 	}
 	setAlias(id,alias) {
-		var api = this.api_base+'/'+id+'/set-alias';
-		return this.http.put(api,alias)
+		var headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		var api = this.api_base+'/'+id+'/alias';
+		var val = { alias: alias};
+		return this.http.put(api,val,{headers: headers})
 			.map(res => res.json());
 	}
 
