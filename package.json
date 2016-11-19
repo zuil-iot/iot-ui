@@ -4,7 +4,7 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "start": "ng serve -p 8080 -H 0.0.0.0",
+    "start": "ng serve -p 8080 -H 0.0.0.0 --proxy-config proxy.conf.json",
     "prod": "ng build --prod",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
