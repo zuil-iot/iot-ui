@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-1"><b>Register</b></div>
 		<div class="col-md-1"><b>Registered</b></div>
-		<div class="col-md-1"><b>Device ID</b></div>
+		<div class="col-md-2"><b>Device ID</b></div>
 		<div class="col-md-2"><b>Alias</b></div>
 		<div class="col-md-1"><b>Delete</b></div>
 	</div>
@@ -15,7 +15,7 @@
 			(toggle)="toggleRegistered(device)"
 			></app-toggle-switch></div>
 		<div class="col-md-1"> {{ device.config.registered }} </div>
-		<div class="col-md-1"> {{ device.deviceID }} </div>
+		<div class="col-md-2"> {{ device.deviceID }} </div>
 		<div class="col-md-2">
 			<input type="text" [(ngModel)]="device.config.alias"
 				(keyup.enter)="updateAlias(device)"
