@@ -44,13 +44,15 @@ import { MessagesService } from "./services/messages.service";
 import { AuthService } from "./services/auth.service";
 import { CanActivateGuard } from './services/guard.service';
 import { NotificationService } from './services/notification.service';
+import { DevicesService } from "./services/devices.service";
 
 let services =  [
   UserService,
   MessagesService,
   AuthService,
   CanActivateGuard,
-  NotificationService
+  NotificationService,
+  DevicesService
 ];
 
 import { HomeComponent } from './pages/home/home.component';

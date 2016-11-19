@@ -11,10 +11,14 @@
 </div>
 <div class="device_list" *ngFor='let device of devices'>
 	<div class="row">
-		<div class="col-md-1"><app-toggle-switch [div_id]="'reg_'+device.deviceID" [is_checked]="device.registered" (toggle)="toggleRegistered(device)"></app-toggle-switch></div>
-		<div class="col-md-1"> {{ device.registered }} </div>
+		<div class="col-md-1"><app-toggle-switch
+			[div_id]="'reg_'+device.deviceID"
+			[is_checked]="device.config.registered"
+			(toggle)="toggleRegistered(device)"
+			></app-toggle-switch></div>
+		<div class="col-md-1"> {{ device.config.registered }} </div>
 		<div class="col-md-1"> {{ device.deviceID }} </div>
-		<div class="col-md-1"> {{ device.alias }} </div>
+		<div class="col-md-1"> {{ device.config.alias }} </div>
 		<div class="col-md-2">
 			<input type="text" #tmpalias
 				(keyup.enter)="updateAlias(device,tmpalias.value)"

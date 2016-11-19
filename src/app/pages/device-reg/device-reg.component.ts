@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Device } from '../../models/device';
+import { DevicesService } from '../../services/devices.service';
 
 
 @Component({
@@ -11,22 +12,23 @@ export class DeviceRegComponent implements OnInit {
 	private submitted:boolean = false;
 	private devices: Device[];
 
-	constructor() { 
+	constructor(private devicesService:DevicesService) { 
 	}
 
 	ngOnInit() {
-		this.devices=[ 
-			{ _id: "abc123", deviceID: "123", alias: "abc", registered: true },
-			{ _id: "xyz456", deviceID: "456", alias: "xyz" , registered: false}
-		];
+		this.devicesService.get()
+			.subscribe(devices => {
+				this.devices = devices;
+			});
+
 	}
 	toggleRegistered (d) {
-		var tmpItem = d;
-		tmpItem.registered = !d.registered;
-//		this.service.update(tmpItem).subscribe(data => {
-			d.registered = tmpItem.registered;
-			console.log("Toggle Registered: ",d.deviceID, " to ",d.registered);
-//		}
+		var id = d._id;
+		var newReg = ! d.config.registered;
+		this.devicesService.register(id,newReg).subscribe(data => {
+			d.config.registered = newReg;
+			console.log("Toggle Registered: ",d.deviceID, " to ",d.config.registered);
+		})
 	}
 	updateAlias(d,newAlias) {
 		var tmpItem = d;
