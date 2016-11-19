@@ -34,5 +34,9 @@ export class DevicesService {
 		return this.http.put(api,val,{headers: headers})
 			.map(res => res.json());
 	}
+	delete(id) {
+		return this.http.delete('/api/devices/'+id)
+			.map(res => res.json());
+	}
 
 }

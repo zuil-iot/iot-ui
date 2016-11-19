@@ -38,13 +38,13 @@ export class DeviceRegComponent implements OnInit {
 	delete(id) {
 		console.log("Delete: ",id);
 		var items = this.devices;
-//		this.service.delete(id).subscribe( data => {
+		this.devicesService.delete(id).subscribe( data => {
 			for (var i=0;i<items.length;i++) {
 				if (items[i]._id == id) {
 					items.splice(i,1);
 				}
 			}
-//		});
+		});
 	}
 
 }
