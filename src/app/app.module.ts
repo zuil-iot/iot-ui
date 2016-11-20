@@ -58,13 +58,13 @@ let services =  [
 import { HomeComponent } from './pages/home/home.component';
 import { PageNumComponent } from './pages/page-num/page-num.component';
 import { ClientComponent } from './pages/client/client.component';
-import { DeviceRegComponent } from './pages/device-reg/device-reg.component';
+import { DevicesComponent } from './pages/devices/devices.component';
 
 let pages = [
   HomeComponent,
   PageNumComponent,
   ClientComponent,
-  DeviceRegComponent
+  DevicesComponent
 ]
 
 //main bootstrap

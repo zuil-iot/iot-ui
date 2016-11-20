@@ -1,13 +1,11 @@
+import {DeviceConfig } from './device_config';
+
 export class Device {
 	public _id:		string;
 	public deviceID:	string;
 	public alias:		string;
-	public registered:	boolean;
+	public config:		DeviceConfig;
 
-	public constructor(data:any = {}) {
-		this._id	= data._id || null;
-		this.deviceID	= data.deviceID || "";
-		this.alias	= data.dalias || "";
-		this.registered	= data.registered || false;
+	public constructor() {
 	}
 }

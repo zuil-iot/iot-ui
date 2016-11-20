@@ -15,7 +15,7 @@
 			></app-toggle-switch></div>
 		<div class="col-md-2"> {{ device.deviceID }} </div>
 		<div class="col-md-2">
-			<input type="text" [(ngModel)]="device.config.alias"
+			<input type="text" [(ngModel)]="device.alias"
 				(keyup.enter)="updateAlias(device)"
 			>
 		</div>
