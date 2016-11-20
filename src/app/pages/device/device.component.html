@@ -1,11 +1,12 @@
-<H2>Device: {{ device.deviceID }}</H2>
+<H2>Device: {{ name }}</H2>
 <div class="col_headers">
 	<div class="row">
 		<div class="col-md-1"><b>Pin</b></div>
 		<div class="col-md-1"><b>Alias</b></div>
 		<div class="col-md-1"><b>Type</b></div>
 		<div class="col-md-1"><b>Mode</b></div>
-		<div class="col-md-1"><b>Value</b></div>
+		<div class="col-md-1"><b>Requested</b></div>
+		<div class="col-md-1"><b>Current</b></div>
 	</div>
 </div>
 <div class="pin_configs" *ngFor='let pin of pinList'>
@@ -14,6 +15,7 @@
 		<div class="col-md-1">{{pin.alias}}</div>
 		<div class="col-md-1">{{pin.type}}</div>
 		<div class="col-md-1">{{pin.mode}}</div>
-		<div class="col-md-1">{{pin.val}}</div>
+		<div class="col-md-1">{{pin.req_val}}</div>
+		<div class="col-md-1">{{pin.cur_val}}</div>
 	</div>
 </div>
