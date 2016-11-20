@@ -27,6 +27,7 @@ import { NotificationBoxComponent } from "./widgets/notification-box";
 import { TasksBoxComponent } from "./widgets/tasks-box";
 import { UserBoxComponent } from "./widgets/user-box";
 import { ToggleSwitchComponent } from './widgets/toggle-switch/toggle-switch.component';
+import { BoolIconComponent } from './widgets/bool-icon/bool-icon.component';
 
 let widgets = [
   AppComponent,
@@ -36,7 +37,8 @@ let widgets = [
   NotificationBoxComponent,
   TasksBoxComponent,
   UserBoxComponent,
-  ToggleSwitchComponent
+  ToggleSwitchComponent,
+  BoolIconComponent
 ];
 
 import { UserService } from "./services/user.service";

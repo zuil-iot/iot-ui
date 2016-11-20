@@ -1,0 +1,17 @@
+.booldisplaywidget {
+	text-align: center;
+}
+.booldisplaywidget i {
+	font-size: 24px;
+	display: none;
+}
+.booldisplaywidget i.active {
+	display: inline-block;
+}
+
+.booldisplaywidget i.bool_on {
+	background-color: #ff0;
+}
+.booldisplaywidget i.bool_off {
+	background-color: #ddd;
+}
