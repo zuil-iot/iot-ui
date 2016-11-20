@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute}  from '@angular/router';
+import { Device } from '../../models/device';
 import { DevicesService } from '../../services/devices.service';
 
 
@@ -9,16 +10,29 @@ import { DevicesService } from '../../services/devices.service';
   styleUrls: ['./device.component.css']
 })
 export class DeviceComponent implements OnInit {
-  private id: number = 0;
+	private sub: any;
+	id: string;
+	private device: Device;
 
-  constructor(
-    private _route: ActivatedRoute
-  ) { }
+	constructor(
+		private	route: ActivatedRoute,
+		private	devicesService:DevicesService
+	) { }
 
-  ngOnInit() {
-    //when calling routes change
-    this._route.params.subscribe((data) =>{
-      this.id = data['id'];
-    })
-  }
+	ngOnInit() {
+		this.device = new Device();;
+		//when calling routes change
+		this.sub = this.route.params.subscribe(params=>{
+			this.id = params['id'];
+			this.devicesService.getOne(this.id)
+				.subscribe(d => {
+					console.log( JSON.stringify(d));
+					this.device = d;
+				});
+		});
+	}
+
+	ngOnDestroy() {
+		this.sub.unsubscribe();
+	}
 }

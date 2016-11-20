@@ -7,5 +7,6 @@ export class Device {
 	public config:		DeviceConfig;
 
 	public constructor() {
+		this.deviceID = "";
 	}
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Device } from '../../models/device';
 import { DevicesService } from '../../services/devices.service';
-//import { Router } from 'angular/router'
 
 
 @Component({
