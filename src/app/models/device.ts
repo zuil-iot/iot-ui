@@ -8,5 +8,6 @@ export class Device {
 
 	public constructor() {
 		this.deviceID = "";
+		this.config = new DeviceConfig();;
 	}
 }

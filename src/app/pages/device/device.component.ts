@@ -11,8 +11,9 @@ import { DevicesService } from '../../services/devices.service';
 })
 export class DeviceComponent implements OnInit {
 	private sub: any;
-	id: string;
+	private id: string;
 	private device: Device;
+	private pinList: any[];
 
 	constructor(
 		private	route: ActivatedRoute,
@@ -21,13 +22,20 @@ export class DeviceComponent implements OnInit {
 
 	ngOnInit() {
 		this.device = new Device();;
+		this.pinList = [];
 		//when calling routes change
 		this.sub = this.route.params.subscribe(params=>{
 			this.id = params['id'];
 			this.devicesService.getOne(this.id)
 				.subscribe(d => {
-					console.log( JSON.stringify(d));
 					this.device = d;
+					console.log( JSON.stringify(d.config.pins));
+					for (var id in d.config.pins) {
+						var pin = d.config.pins[id];
+						pin.id = id;
+						pin.val = "n/a";
+						this.pinList.push(pin);
+					}
 				});
 		});
 	}
