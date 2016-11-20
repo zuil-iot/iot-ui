@@ -45,52 +45,6 @@ export class MenuAsideComponent implements OnInit {
         }
       ]
     },
-    {
-      "title": "Client",
-      "icon": "usd",
-      "link": ['/client']
-    },
-    {
-      "title": "Sub menu",
-      "icon": "link",
-      "sublinks": [
-        {
-          "title": "Page 2",
-          "link": ['/pages/2'],
-        },
-        {
-          "title": "Page 3",
-          "link": ['/pages/3'],
-        }
-      ]
-    },
-    {
-      "title": "External Link",
-      "icon": "google",
-      "link": ['http://google.com'],
-      "external": true,
-      "target": "_blank"
-    },
-    {
-      "title": "External Links",
-      "icon": "link",
-      "sublinks": [
-        {
-          "title": "Github",
-          "link": ['http://github.com'],
-          "icon": "github",
-          "external": true,
-          "target": "_blank"
-        },
-        {
-          "title": "Yahoo",
-          "link": ['http://yahoo.com'],
-          "icon": "yahoo",
-          "external": true,
-          "target": "_blank"
-        }
-      ]
-    }
   ];
 
   constructor(private _user_serv : UserService, public router: Router, private auth: AuthService){
