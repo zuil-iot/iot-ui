@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Device } from '../../models/device';
 import { DevicesService } from '../../services/devices.service';
+//import { Router } from 'angular/router'
 
 
 @Component({
@@ -54,6 +55,9 @@ export class DevicesComponent implements OnInit {
 			var i=this.findItem(id);
 			if (i != null ) { this.devices.splice(i,1); }
 		});
+	}
+	viewDevice(deviceID) {
+//		this.router.navigate(['pages/device/'..deviceID]);
 	}
 
 }
