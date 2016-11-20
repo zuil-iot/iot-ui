@@ -12,10 +12,10 @@ import { DeviceComponent } from './pages/device/device.component';
 const routes: Routes = [
     // Root
     { path: '', component: HomeComponent},
-    { path: 'page/devices', component: DevicesComponent, canActivate: [CanActivateGuard] },
-    { path: 'page/device/:id', component: DeviceComponent, canActivate: [CanActivateGuard] },
-    { path: 'client', component: ClientComponent, canActivate: [CanActivateGuard] },
-    { path: 'page/:id', component: PageNumComponent, canActivate: [CanActivateGuard] }
+    { path: 'pages/devices', component: DevicesComponent, canActivate: [CanActivateGuard] },
+    { path: 'pages/device/:id', component: DeviceComponent, canActivate: [CanActivateGuard] },
+    { path: 'pages/:id', component: PageNumComponent, canActivate: [CanActivateGuard] },
+    { path: 'client', component: ClientComponent, canActivate: [CanActivateGuard] }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

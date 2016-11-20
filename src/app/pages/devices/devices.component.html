@@ -22,17 +22,12 @@
 		</div>
 		<div class="col-md-1">
 			<a class="btn btn-sm btn-info"
-      				[routerLink]="['/page/device/',device.deviceID]"
-      				>
-					View
-			</a>
+      				[routerLink]="['/pages/device/',device._id]" >View</a>
 		</div>
 		<div class="col-md-1">
 			<button type="button"
 				class="btn btn-sm btn-danger"
-				(click)="delete(device._id)">
-					Delete
-			</button>
+				(click)="delete(device._id)">Delete</button>
 		</div>
 	</div>
 </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute}  from '@angular/router';
+import { DevicesService } from '../../services/devices.service';
+
 
 @Component({
   selector: 'app-device',
@@ -19,5 +21,4 @@ export class DeviceComponent implements OnInit {
       this.id = data['id'];
     })
   }
-
 }

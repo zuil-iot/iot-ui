@@ -23,7 +23,7 @@ export class MenuAsideComponent implements OnInit {
       "sublinks": [
         {
           "title": "Device Registration",
-          "link": ['/page/devices']
+          "link": ['/pages/devices']
         }
       ]
     },
@@ -56,11 +56,11 @@ export class MenuAsideComponent implements OnInit {
       "sublinks": [
         {
           "title": "Page 2",
-          "link": ['/page/2'],
+          "link": ['/pages/2'],
         },
         {
           "title": "Page 3",
-          "link": ['/page/3'],
+          "link": ['/pages/3'],
         }
       ]
     },
