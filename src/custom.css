@@ -1,0 +1,8 @@
+.row-centered {
+	text-align:center;
+}
+.col-centered {
+	display:inline-block;
+	float:none;
+	text-align:center;
+}

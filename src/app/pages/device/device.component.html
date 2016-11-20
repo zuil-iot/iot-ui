@@ -5,8 +5,8 @@
 		<div class="col-md-1"><b>Alias</b></div>
 		<div class="col-md-1"><b>Type</b></div>
 		<div class="col-md-1"><b>Mode</b></div>
-		<div class="col-md-1"><b>Requested</b></div>
-		<div class="col-md-1"><b>Current</b></div>
+		<div class="col-md-1 col-centered"><b>Requested</b></div>
+		<div class="col-md-1 col-centered"><b>Current</b></div>
 	</div>
 </div>
 <div class="pin_configs" *ngFor='let pin of pinList'>
@@ -15,7 +15,10 @@
 		<div class="col-md-1">{{pin.alias}}</div>
 		<div class="col-md-1">{{pin.type}}</div>
 		<div class="col-md-1">{{pin.mode}}</div>
-		<div class="col-md-1">{{pin.req_val}}</div>
-		<div class="col-md-1">{{pin.cur_val}}</div>
+		<div class="col-md-1 col-centered">{{pin.req_val}}</div>
+		<div *ngIf="pin.type == 'gpio'" class="col-md-1 col-centered">
+			<app-bool-icon [state]="pin.cur_val"></app-bool-icon>
+		</div>
+		<div *ngIf="pin.type != 'gpio'" class="col-md-1 col-centered">{{pin.cur_val}}</div>
 	</div>
 </div>

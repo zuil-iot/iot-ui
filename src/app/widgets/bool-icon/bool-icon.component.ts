@@ -5,7 +5,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   templateUrl: './bool-icon.component.html',
   styleUrls: ['./bool-icon.component.css'],
   inputs: [
-	'on: on',
+	'state: state',
 	'on_icon: on_icon',
 	'off_icon: off_icon'
   ]
@@ -13,7 +13,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class BoolIconComponent implements OnInit {
 	on_icon:string;
 	off_icon:string;
-	on:boolean;
+	state:boolean;
 
 	@Output() toggle = new EventEmitter();
 

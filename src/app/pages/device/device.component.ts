@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute}  from '@angular/router';
 import { Device } from '../../models/device';
 import { DevicesService } from '../../services/devices.service';
+import {Observable} from 'rxjs/Observable';
+
 
 
 @Component({
@@ -10,19 +12,68 @@ import { DevicesService } from '../../services/devices.service';
   styleUrls: ['./device.component.css']
 })
 export class DeviceComponent implements OnInit {
-	private sub: any;
 	private id: string;
 	private device: Device;
 	private pinList: any[];
 	private pinMap: any;
 	private name: string;
+	private routeSubscription: any;
+	private dataSubscription: any;
+	private timerSubscription: any;
 
 	constructor(
 		private	route: ActivatedRoute,
 		private	devicesService:DevicesService
 	) { }
 
-	loadPinList(d) {
+	ngOnInit() {
+		this.device = new Device();;
+		this.pinList = [];
+		this.pinMap = {};
+		this.refreshRoute();
+	}
+
+	ngOnDestroy() {
+		this.routeSubscription.unsubscribe();
+		this.dataSubscription.unsubscribe();
+		this.timerSubscription.unsubscribe();
+	}
+
+	private doTimer():void {
+		this.timerSubscription = Observable.timer(5000).first()
+			.subscribe(() => this.refreshData());
+	}
+	private refreshData():void {
+		console.log("Refresh Device Data");
+		this.dataSubscription = this.devicesService.getOne(this.id)
+			.subscribe(d => {
+				this.device = d;
+				this.loadPinList(d);
+				this.setName(d);
+				this.doTimer();
+			});
+	}
+		
+
+	private refreshRoute():void {
+		//when calling routes change
+		this.routeSubscription = this.route.params.subscribe(params=>{
+			this.id = params['id'];
+			this.refreshData();
+		});
+	}
+
+	private setName(d):void {
+		if (d.alias) {
+			this.name = d.alias;
+		} else {
+			this.name = d.deviceID;
+		}
+	}
+
+	private loadPinList(d):void {
+		this.pinList = [];
+		this.pinMap = {};
 		console.log( "device: ",JSON.stringify(d));
 		// Load Config
 		console.log( "config: ",JSON.stringify(d.config.pins));
@@ -55,28 +106,4 @@ export class DeviceComponent implements OnInit {
 		}
 	}
 
-	ngOnInit() {
-		this.device = new Device();;
-		this.pinList = [];
-		this.pinMap = {};
-		this.name = this.id;
-		//when calling routes change
-		this.sub = this.route.params.subscribe(params=>{
-			this.id = params['id'];
-			this.devicesService.getOne(this.id)
-				.subscribe(d => {
-					if (d.alias) {
-						this.name = d.alias;
-					} else {
-						this.name = d.deviceID;
-					}
-					this.device = d;
-					this.loadPinList(d);
-				});
-		});
-	}
-
-	ngOnDestroy() {
-		this.sub.unsubscribe();
-	}
 }
