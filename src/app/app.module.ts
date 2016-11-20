@@ -61,12 +61,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { PageNumComponent } from './pages/page-num/page-num.component';
 import { ClientComponent } from './pages/client/client.component';
 import { DevicesComponent } from './pages/devices/devices.component';
+import { DeviceComponent } from './pages/device/device.component';
 
 let pages = [
   HomeComponent,
   PageNumComponent,
   ClientComponent,
-  DevicesComponent
+  DevicesComponent,
+  DeviceComponent
 ]
 
 //main bootstrap

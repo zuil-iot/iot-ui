@@ -16,7 +16,7 @@ export class DevicesComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.devicesService.get()
+		this.devicesService.getAll()
 			.subscribe(devices => {
 				this.devices = devices;
 			});
@@ -54,6 +54,9 @@ export class DevicesComponent implements OnInit {
 			var i=this.findItem(id);
 			if (i != null ) { this.devices.splice(i,1); }
 		});
+	}
+	viewDevice(deviceID) {
+//		this.router.navigate(['pages/device/'..deviceID]);
 	}
 
 }

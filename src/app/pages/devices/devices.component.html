@@ -3,6 +3,7 @@
 		<div class="col-md-1"><b>Registered</b></div>
 		<div class="col-md-2"><b>Device ID</b></div>
 		<div class="col-md-2"><b>Alias</b></div>
+		<div class="col-md-1"><b>View</b></div>
 		<div class="col-md-1"><b>Delete</b></div>
 	</div>
 </div>
@@ -20,11 +21,13 @@
 			>
 		</div>
 		<div class="col-md-1">
+			<a class="btn btn-sm btn-info"
+      				[routerLink]="['/pages/device',device._id]" >View</a>
+		</div>
+		<div class="col-md-1">
 			<button type="button"
 				class="btn btn-sm btn-danger"
-				(click)="delete(device._id)">
-					Delete
-			</button>
+				(click)="delete(device._id)">Delete</button>
 		</div>
 	</div>
 </div>

@@ -11,8 +11,13 @@ export class DevicesService {
 		console.log("Devices Service Started");
 	}
 
-	get() {
+	getAll() {
 		return this.http.get(this.api_base)
+			.map(res => res.json());
+	}
+	getOne(id) {
+		var api = this.api_base+'/'+id;
+		return this.http.get(api)
 			.map(res => res.json());
 	}
 
