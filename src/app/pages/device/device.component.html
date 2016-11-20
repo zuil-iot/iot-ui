@@ -5,7 +5,7 @@
 		<div class="col-md-1"><b>Alias</b></div>
 		<div class="col-md-1"><b>Type</b></div>
 		<div class="col-md-1"><b>Mode</b></div>
-		<div class="col-md-1 col-centered"><b>Requested</b></div>
+		<div class="col-md-1"><b>Requested</b></div>
 		<div class="col-md-1 col-centered"><b>Current</b></div>
 	</div>
 </div>
@@ -15,7 +15,16 @@
 		<div class="col-md-1">{{pin.alias}}</div>
 		<div class="col-md-1">{{pin.type}}</div>
 		<div class="col-md-1">{{pin.mode}}</div>
-		<div class="col-md-1 col-centered">{{pin.req_val}}</div>
+		<!-- Requested state -->
+		<div *ngIf="pin.mode == 'out'" class="col-md-1">
+			<app-toggle-switch
+				 [div_id]="'px_'+pin.id"
+				 [is_checked]="pin.req_val"
+				 (toggle)="toggleRequested(pin)"
+			></app-toggle-switch>
+		</div>
+		<div *ngIf="pin.mode != 'out'" class="col-md-1"></div>
+		<!-- Current state -->
 		<div *ngIf="pin.type == 'gpio'" class="col-md-1 col-centered">
 			<app-bool-icon [state]="pin.cur_val"></app-bool-icon>
 		</div>

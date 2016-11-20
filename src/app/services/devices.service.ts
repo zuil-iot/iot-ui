@@ -35,12 +35,21 @@ export class DevicesService {
 		var headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 		var api = this.api_base+'/'+id+'/alias';
-		var val = { alias: alias};
-		return this.http.put(api,val,{headers: headers})
+		var payload = { alias: alias};
+		return this.http.put(api,payload,{headers: headers})
 			.map(res => res.json());
 	}
 	delete(id) {
 		return this.http.delete('/api/devices/'+id)
+			.map(res => res.json());
+	}
+	setPin(id,pin,val) {
+		var headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		console.log("Set pin [",pin,"] = ",val);
+		var api = this.api_base+'/'+id+'/pin';
+		var payload = { pin: pin, val: val};
+		return this.http.put(api,payload,{headers: headers})
 			.map(res => res.json());
 	}
 

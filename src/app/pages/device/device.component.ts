@@ -105,5 +105,25 @@ export class DeviceComponent implements OnInit {
 			}
 		}
 	}
+	private findPin(pin) {
+		var items = this.pinList;
+		for (var i=0;i<items.length;i++) {
+			if (items[i].id = pin) {
+				return i;
+			}
+		}
+		return null;
+	}
+	private toggleRequested(p) {
+		this.dataSubscription.unsubscribe();
+		this.timerSubscription.unsubscribe();
+		var newVal = !p.req_val;
+		console.log("Toggle pin: ",p.id);
+		var i=this.findPin(p.id);
+		this.devicesService.setPin(this.id,p.id,newVal).subscribe(data => {
+			if (i != null) { this.pinList[i].req_val = newVal; }
+			this.refreshData();
+		});
+	}
 
 }
