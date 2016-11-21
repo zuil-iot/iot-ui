@@ -125,5 +125,9 @@ export class DeviceComponent implements OnInit {
 			this.refreshData();
 		});
 	}
+	private stopRefresh():void {
+		this.dataSubscription.unsubscribe();
+		this.timerSubscription.unsubscribe();
+	}
 
 }

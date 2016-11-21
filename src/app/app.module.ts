@@ -28,6 +28,8 @@ import { TasksBoxComponent } from "./widgets/tasks-box";
 import { UserBoxComponent } from "./widgets/user-box";
 import { ToggleSwitchComponent } from './widgets/toggle-switch/toggle-switch.component';
 import { BoolIconComponent } from './widgets/bool-icon/bool-icon.component';
+import { AnalogBarComponent } from './widgets/analog-bar/analog-bar.component';
+import { TachometerComponent } from './widgets/tachometer/tachometer.component';
 
 let widgets = [
   AppComponent,
@@ -38,7 +40,9 @@ let widgets = [
   TasksBoxComponent,
   UserBoxComponent,
   ToggleSwitchComponent,
-  BoolIconComponent
+  BoolIconComponent,
+  AnalogBarComponent,
+  TachometerComponent
 ];
 
 import { UserService } from "./services/user.service";

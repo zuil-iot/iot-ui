@@ -1,4 +1,7 @@
 <H2>Device: {{ name }}</H2>
+<div>
+	<button class="btn bth-sm btn-warning" (click)="stopRefresh()" >Stop Refresh</button>
+</div>
 <div class="col_headers">
 	<div class="row">
 		<div class="col-md-1"><b>Pin</b></div>
@@ -6,7 +9,7 @@
 		<div class="col-md-1"><b>Type</b></div>
 		<div class="col-md-1"><b>Mode</b></div>
 		<div class="col-md-1"><b>Requested</b></div>
-		<div class="col-md-1 col-centered"><b>Current</b></div>
+		<div class="col-md-1"><b>Current</b></div>
 	</div>
 </div>
 <div class="pin_configs" *ngFor='let pin of pinList'>
@@ -25,9 +28,12 @@
 		</div>
 		<div *ngIf="pin.mode != 'out'" class="col-md-1"></div>
 		<!-- Current state -->
-		<div *ngIf="pin.type == 'gpio'" class="col-md-1 col-centered">
+		<div *ngIf="pin.type == 'gpio'" class="col-md-1">
 			<app-bool-icon [state]="pin.cur_val"></app-bool-icon>
 		</div>
-		<div *ngIf="pin.type != 'gpio'" class="col-md-1 col-centered">{{pin.cur_val}}</div>
+		<div *ngIf="pin.type == 'adc'" class="col-md-1">
+			<app-analog-bar min="0" max="1024" [val]="pin.cur_val"></app-analog-bar>
+		</div>
+		<div *ngIf="pin.type != 'gpio' && pin.type != 'adc'" class="col-md-1">{{pin.cur_val}}</div>
 	</div>
 </div>
