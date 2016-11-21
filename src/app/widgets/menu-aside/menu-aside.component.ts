@@ -42,6 +42,12 @@ export class MenuAsideComponent implements OnInit {
           "link": ['http://bootstrapdocs.com/v3.0.3/docs/'],
 	  "external": true,
 	  "target": "_blank"
+        },
+        {
+          "title": "NodeMCU",
+          "link": ['https://nodemcu.readthedocs.io/en/dev/'],
+	  "external": true,
+	  "target": "_blank"
         }
       ]
     },
