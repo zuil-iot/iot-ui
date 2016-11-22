@@ -1,0 +1,23 @@
+<div class="container">
+<div class="col_headers">
+	<div class="row">
+		<div class="col-md-1 col-sm-1 col-xs-1"><b>Online</b></div>
+		<div class="col-md-1 col-sm-2 col-xs-3"><b>View</b></div>
+		<div class="col-md-3 col-sm-2 col-xs-3"><b>Alias</b></div>
+		<div class="col-md-3 col-sm-3 col-xs-3"><b>Device ID</b></div>
+	</div>
+</div>
+<div class="device_list" *ngFor='let device of devices'>
+	<div class="row">
+		<div class="col-md-1 col-sm-1 col-xs-1">
+			<app-bool-icon [state]="device.online"></app-bool-icon>
+		</div>
+		<div class="col-md-1 col-sm-2 col-xs-3">
+			<a class="btn btn-sm btn-info" [class.hidden]="!device.online"
+      				[routerLink]="['/pages/user/device-detail',device._id]" >View</a>
+		</div>
+		<div class="col-md-3 col-sm-2 col-xs-3"> {{ device.alias }} </div>
+		<div class="col-md-3 col-sm-3 col-xs-3"> {{ device.deviceID }} </div>
+	</div>
+</div>
+</div>

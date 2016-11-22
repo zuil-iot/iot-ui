@@ -15,6 +15,7 @@ export const environment = {
   },
   auth0: {
     clientID: '2eoGL34nDRULPg3WBuMaVlVQtX9gn3mP',
-    domain: 'zuli.auth0.com'
+    domain: 'zuli.auth0.com',
+    delegate: false
   }
 };

@@ -14,8 +14,10 @@ export class AnalogBarComponent implements OnInit {
 	min:number;
 	max:number;
 	val:number;
+	base_hue:number;
 
 	constructor() {
+		this.base_hue = this.base_hue || 60;
        	}
 
 	ngOnInit() {

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute}  from '@angular/router';
-import { Device } from '../../models/device';
-import { DevicesService } from '../../services/devices.service';
+import { Device } from '../../../models/device';
+import { DevicesService } from '../../../services/devices.service';
 import {Observable} from 'rxjs/Observable';
 
 
 
 @Component({
-  selector: 'app-device',
-  templateUrl: './device.component.html',
-  styleUrls: ['./device.component.css']
+  selector: 'app-device-detail',
+  templateUrl: './device-detail.component.html',
+  styleUrls: ['./device-detail.component.css']
 })
-export class DeviceComponent implements OnInit {
+export class DeviceDetailComponent implements OnInit {
 	private id: string;
 	private device: Device;
 	private pinList: any[];

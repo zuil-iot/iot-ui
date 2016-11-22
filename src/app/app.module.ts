@@ -1,4 +1,4 @@
-//external module
+// External modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +20,7 @@ let modules = [
   ToasterModule
 ];
 
+// Widgets
 import { AppHeaderComponent } from "./widgets/app-header";
 import { MenuAsideComponent } from "./widgets/menu-aside";
 import { MessagesBoxComponent} from "./widgets/messages-box";
@@ -45,12 +46,13 @@ let widgets = [
   TachometerComponent
 ];
 
-import { UserService } from "./services/user.service";
-import { MessagesService } from "./services/messages.service";
-import { AuthService } from "./services/auth.service";
-import { CanActivateGuard } from './services/guard.service';
-import { NotificationService } from './services/notification.service';
-import { DevicesService } from "./services/devices.service";
+// Services
+import { UserService }			from "./services/user.service";
+import { MessagesService }		from "./services/messages.service";
+import { AuthService }			from "./services/auth.service";
+import { CanActivateGuard }		from './services/guard.service';
+import { NotificationService }		from './services/notification.service';
+import { DevicesService }		from "./services/devices.service";
 
 let services =  [
   UserService,
@@ -61,21 +63,24 @@ let services =  [
   DevicesService
 ];
 
-import { HomeComponent } from './pages/home/home.component';
-import { PageNumComponent } from './pages/page-num/page-num.component';
-import { ClientComponent } from './pages/client/client.component';
-import { DevicesComponent } from './pages/devices/devices.component';
-import { DeviceComponent } from './pages/device/device.component';
+// Pages
+//  Global Pages
+import { HomeComponent }		from './pages/home/home.component';
+// User Pages
+import { DeviceListComponent }		from './pages/user/device-list/device-list.component';
+import { DeviceDetailComponent }	from './pages/user/device-detail/device-detail.component';
+// Admin Pages
+import { DeviceRegComponent }		from './pages/admin/device-reg/device-reg.component';
+// SuperAdmin Pages
 
 let pages = [
   HomeComponent,
-  PageNumComponent,
-  ClientComponent,
-  DevicesComponent,
-  DeviceComponent
+  DeviceRegComponent,
+  DeviceListComponent,
+  DeviceDetailComponent
 ]
 
-//main bootstrap
+// Main bootstrap
 import { AppComponent } from './app.component';
 import { routing } from './app.routes';
 

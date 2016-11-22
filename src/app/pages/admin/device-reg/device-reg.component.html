@@ -1,6 +1,7 @@
 <div class="container">
 <div class="col_headers">
 	<div class="row">
+		<div class="col-md-1 col-sm-1 col-xs-1"><b>Online</b></div>
 		<div class="col-md-1 col-sm-2 col-xs-2"><b>Registered</b></div>
 		<div class="col-md-2 col-sm-3 col-xs-3"><b>Device ID</b></div>
 		<div class="col-md-2 col-sm-2 col-xs-3"><b>Alias</b></div>
@@ -10,20 +11,23 @@
 </div>
 <div class="device_list" *ngFor='let device of devices'>
 	<div class="row">
+		<div class="col-md-1 col-sm-1 col-xs-1">
+			<app-bool-icon [state]="device.online"></app-bool-icon>
+		</div>
 		<div class="col-md-1 col-sm-2 col-xs-2"><app-toggle-switch
 			[div_id]="'reg_'+device.deviceID"
 			[is_checked]="device.config.registered"
 			(toggle)="toggleRegistered(device)"
 			></app-toggle-switch></div>
 		<div class="col-md-2 col-sm-3 col-xs-3"> {{ device.deviceID }} </div>
-		<div class="col-md-2 col-sm32 col-xs-3">
+		<div class="col-md-2 col-sm-2 col-xs-3">
 			<input type="text" [(ngModel)]="device.alias"
 				(keyup.enter)="updateAlias(device)"
 			>
 		</div>
 		<div class="col-md-1 col-sm-2 col-xs-2">
-			<a class="btn btn-sm btn-info"
-      				[routerLink]="['/pages/device',device._id]" >View</a>
+			<a class="btn btn-sm btn-info" [class.hidden]="!device.online"
+      				[routerLink]="['/pages/user/device-detail',device._id]" >View</a>
 		</div>
 		<div class="col-md-1 col-sm-2 col-xs-2">
 			<button type="button"

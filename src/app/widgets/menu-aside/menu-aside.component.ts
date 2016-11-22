@@ -18,14 +18,20 @@ export class MenuAsideComponent implements OnInit {
       "link": ['/']
     },
     {
-      "title": "Devices",
-      "icon": "snowflake-o",
+      "title": "Admin",
+      "icon": "wrench",
       "sublinks": [
         {
           "title": "Device Registration",
-          "link": ['/pages/devices']
+          "link": ['/pages/admin/device-reg'],
+          "icon": "snowflake-o"
         }
       ]
+    },
+    {
+      "title": "Device List",
+      "link": ['/pages/user/device-list'],
+      "icon": "list"
     },
     {
       "title": "Documentation",
@@ -40,6 +46,12 @@ export class MenuAsideComponent implements OnInit {
         {
           "title": "Bootstrap 3",
           "link": ['http://bootstrapdocs.com/v3.0.3/docs/'],
+	  "external": true,
+	  "target": "_blank"
+        },
+        {
+          "title": "Font Awesome Icons",
+          "link": ['http://fontawesome.io/icons/'],
 	  "external": true,
 	  "target": "_blank"
         },

@@ -20,13 +20,12 @@
 .onoffswitch-inner:before, .onoffswitch-inner:after {
     display: block; float: left; width: 50%; height: 25px; padding: 0; line-height: 25px;
     font-size: 14px; color: white; font-weight: bold;
-    Xfont-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     box-sizing: border-box;
 }
 .onoffswitch-inner:before {
     content: "ON";
     padding-left: 10px;
-    background-color: #34A7C1; color: #FFFFFF;
+    background-color: #00acd6; color: #FFFFFF;
 }
 
 .onoffswitch-inner:after {

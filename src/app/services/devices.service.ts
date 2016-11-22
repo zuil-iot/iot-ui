@@ -6,18 +6,22 @@ import {Http, Headers} from '@angular/http';
 export class DevicesService {
 
 	api_base = '/api/devices';
+	headers: Headers;
 
 	constructor(private http:Http) {
 		console.log("Devices Service Started");
+		this.headers = new Headers();
+		this.headers.append('Content-Type', 'application/json');
+		this.headers.append('Authorization', 'Bearer '+localStorage.getItem('id_token'));
 	}
 
 	getAll() {
-		return this.http.get(this.api_base)
+		return this.http.get(this.api_base, {headers: this.headers})
 			.map(res => res.json());
 	}
 	getOne(id) {
 		var api = this.api_base+'/'+id;
-		return this.http.get(api)
+		return this.http.get(api, {headers: this.headers})
 			.map(res => res.json());
 	}
 
@@ -28,28 +32,24 @@ export class DevicesService {
 		} else {
 			api += 'unregister';
 		}
-		return this.http.put(api,{})
+		return this.http.put(api,{}, {headers: this.headers})
 			.map(res => res.json());
 	}
 	setAlias(id,alias) {
-		var headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 		var api = this.api_base+'/'+id+'/alias';
 		var payload = { alias: alias};
-		return this.http.put(api,payload,{headers: headers})
+		return this.http.put(api,payload,{headers: this.headers})
 			.map(res => res.json());
 	}
 	delete(id) {
-		return this.http.delete('/api/devices/'+id)
+		return this.http.delete('/api/devices/'+id, {headers: this.headers})
 			.map(res => res.json());
 	}
 	setPin(id,pin,val) {
-		var headers = new Headers();
-		headers.append('Content-Type', 'application/json');
 		console.log("Set pin [",pin,"] = ",val);
 		var api = this.api_base+'/'+id+'/pin';
 		var payload = { pin: pin, val: val};
-		return this.http.put(api,payload,{headers: headers})
+		return this.http.put(api,payload,{headers: this.headers})
 			.map(res => res.json());
 	}
 

@@ -27,18 +27,20 @@ export class AuthService {
 					localStorage.setItem('profile', JSON.stringify(profile));
 					this.profile = profile;
 
-					this.auth.getDelegationToken(this.GenerateAuthOption(authResult.idToken), (err: Auth0Error, token: Auth0DelegationToken): void => {
-						if (err) {
-							this.notif.Error(err.message);
-						}
-						else {
-							this.af.auth.login(token.id_token, {provider: AuthProviders.Custom, method: AuthMethods.CustomToken}).then((resp: any): void => {
-								//this.notif.Success('You successfully loged in');
-							}, (err: Error): void => {
+					if (environment.auth0.delegate) {
+						this.auth.getDelegationToken(this.GenerateAuthOption(authResult.idToken), (err: Auth0Error, token: Auth0DelegationToken): void => {
+							if (err) {
 								this.notif.Error(err.message);
-							});
-						}
-					});
+							}
+							else {
+								this.af.auth.login(token.id_token, {provider: AuthProviders.Custom, method: AuthMethods.CustomToken}).then((resp: any): void => {
+									//this.notif.Success('You successfully loged in');
+								}, (err: Error): void => {
+									this.notif.Error(err.message);
+								});
+							}
+						});
+					}
 				}
 			});
 		});

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Device } from '../../models/device';
-import { DevicesService } from '../../services/devices.service';
+import { Device } from '../../../models/device';
+import { DevicesService } from '../../../services/devices.service';
 import {Observable} from 'rxjs/Observable';
 
 
 
 @Component({
-  selector: 'app-device-reg',
-  templateUrl: './devices.component.html',
-  styleUrls: ['./devices.component.css'],
+  selector: 'app-device-list',
+  templateUrl: './device-list.component.html',
+  styleUrls: ['./device-list.component.css'],
 })
-export class DevicesComponent implements OnInit {
+export class DeviceListComponent implements OnInit {
 	private submitted:boolean = false;
 	private devices: Device[];
 	private dataSubscription: any;

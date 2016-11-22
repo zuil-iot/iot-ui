@@ -1,4 +1,5 @@
 .tachometerwidget {
+	display: inline-block;
 	position: relative;
 	width:	150px;
 	height:	150px;
