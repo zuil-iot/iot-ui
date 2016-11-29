@@ -1,56 +1,52 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {IotApiService } from './iot-api.service';
 
 
 @Injectable()
 export class DevicesService {
 
-	api_base = '/api/devices';
-	headers: Headers;
+	path_base = 'devices';
 
-	constructor(private http:Http) {
-		console.log("Devices Service Started");
-		this.headers = new Headers();
-		this.headers.append('Content-Type', 'application/json');
-		this.headers.append('Authorization', 'Bearer '+localStorage.getItem('id_token'));
+	constructor(private api:IotApiService) {
 	}
 
+	// Standard functions
+	create(newItem) {
+		var path = this.path_base;
+		return this.api.post(path,newItem);
+	}
 	getAll() {
-		return this.http.get(this.api_base, {headers: this.headers})
-			.map(res => res.json());
+		var path = this.path_base;
+		return this.api.get(path);
 	}
 	getOne(id) {
-		var api = this.api_base+'/'+id;
-		return this.http.get(api, {headers: this.headers})
-			.map(res => res.json());
-	}
-
-	register(id,newReg) {
-		var api = this.api_base+'/'+id+'/';
-		if (newReg) {
-			api += 'register';
-		} else {
-			api += 'unregister';
-		}
-		return this.http.put(api,{}, {headers: this.headers})
-			.map(res => res.json());
-	}
-	setAlias(id,alias) {
-		var api = this.api_base+'/'+id+'/alias';
-		var payload = { alias: alias};
-		return this.http.put(api,payload,{headers: this.headers})
-			.map(res => res.json());
+		var path = this.path_base+'/'+id;
+		return this.api.get(path);
 	}
 	delete(id) {
-		return this.http.delete('/api/devices/'+id, {headers: this.headers})
-			.map(res => res.json());
+		var path = this.path_base;
+		return this.api.delete(path,id);
+	}
+
+	// Module specific functions
+	register(id,newReg) {
+		var path = this.path_base+'/'+id+'/';
+		if (newReg) {
+			path += 'register';
+		} else {
+			path += 'unregister';
+		}
+		return this.api.put(path,{});
+	}
+	setAlias(id,alias) {
+		var path = this.path_base+'/'+id+'/alias';
+		var payload = { alias: alias};
+		return this.api.put(path,payload);
 	}
 	setPin(id,pin,val) {
-		console.log("Set pin [",pin,"] = ",val);
-		var api = this.api_base+'/'+id+'/pin';
+		var path = this.path_base+'/'+id+'/pin';
 		var payload = { pin: pin, val: val};
-		return this.http.put(api,payload,{headers: this.headers})
-			.map(res => res.json());
+		return this.api.put(path,payload);
 	}
 
 }

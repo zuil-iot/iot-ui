@@ -29,8 +29,24 @@
 			<div *ngIf="pin.mode != 'out' && pin.type != 'adc'" class="col-md-2 col-sm-2 col-xs-3"></div>
 		</div>
 	</div>
-	<div class="bottom_buttons visible-md visible-lg">
-		<hr />
-		<button class="btn btn-warning btn-xs" (click)="stopRefresh()" >Stop Refresh</button>
-	</div>
+	<div class="row"><div class="col-sm-12">
+		<div class="bottom_buttons visible-md visible-lg">
+			<hr />
+			<button class="btn btn-warning btn-xs" (click)="stopRefresh()" >Stop Refresh</button>
+			<hr />
+		</div>
+	</div></div>
+	<div class="row"><div class="col-sm-12">
+		<app-chartist-chart
+			chartClass="ct-chart"
+			chartType="Line"
+			[chartData]="chartData"
+			[chartOptions]="chartOptions"
+   			(onChartReady)="chartReady($event);"
+			>
+		</app-chartist-chart>
+	</div></div>
+	<div class="row"><div class="col-sm-12">
+			<pre>{{chartDataStr}}</pre>
+	</div></div>
 </div>

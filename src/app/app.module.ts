@@ -31,6 +31,7 @@ import { ToggleSwitchComponent } from './widgets/toggle-switch/toggle-switch.com
 import { BoolIconComponent } from './widgets/bool-icon/bool-icon.component';
 import { AnalogBarComponent } from './widgets/analog-bar/analog-bar.component';
 import { TachometerComponent } from './widgets/tachometer/tachometer.component';
+import { ChartistChartComponent } from './widgets/chartist-chart/chartist-chart.component';
 
 let widgets = [
   AppComponent,
@@ -43,7 +44,8 @@ let widgets = [
   ToggleSwitchComponent,
   BoolIconComponent,
   AnalogBarComponent,
-  TachometerComponent
+  TachometerComponent,
+  ChartistChartComponent
 ];
 
 // Services
@@ -53,6 +55,8 @@ import { AuthService }			from "./services/auth.service";
 import { CanActivateGuard }		from './services/guard.service';
 import { NotificationService }		from './services/notification.service';
 import { DevicesService }		from "./services/devices.service";
+import { StreamService }		from "./services/stream.service";
+import { IotApiService }		from "./services/iot-api.service";
 
 let services =  [
   UserService,
@@ -60,7 +64,9 @@ let services =  [
   AuthService,
   CanActivateGuard,
   NotificationService,
-  DevicesService
+  DevicesService,
+  StreamService,
+  IotApiService
 ];
 
 // Pages
