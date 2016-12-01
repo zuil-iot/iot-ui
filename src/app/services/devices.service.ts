@@ -38,6 +38,11 @@ export class DevicesService {
 		}
 		return this.api.put(path,{});
 	}
+	setType(id,type) {
+		var path = this.path_base+'/'+id+'/type';
+		var payload = { typeID: type};
+		return this.api.put(path,payload);
+	}
 	setAlias(id,alias) {
 		var path = this.path_base+'/'+id+'/alias';
 		var payload = { alias: alias};

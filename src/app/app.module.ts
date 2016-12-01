@@ -55,6 +55,7 @@ import { AuthService }			from "./services/auth.service";
 import { CanActivateGuard }		from './services/guard.service';
 import { NotificationService }		from './services/notification.service';
 import { DevicesService }		from "./services/devices.service";
+import { DeviceTypesService }		from "./services/device-types.service";
 import { StreamService }		from "./services/stream.service";
 import { IotApiService }		from "./services/iot-api.service";
 
@@ -65,6 +66,7 @@ let services =  [
   CanActivateGuard,
   NotificationService,
   DevicesService,
+  DeviceTypesService,
   StreamService,
   IotApiService
 ];

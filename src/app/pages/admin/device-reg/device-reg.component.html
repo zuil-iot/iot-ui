@@ -5,6 +5,8 @@
 		<div class="col-md-1 col-sm-2 col-xs-2"><b>Registered</b></div>
 		<div class="col-md-2 col-sm-3 col-xs-3"><b>Device ID</b></div>
 		<div class="col-md-2 col-sm-2 col-xs-3"><b>Alias</b></div>
+		<div class="col-md-2 col-sm-3 col-xs-3"><b>Device Type</b></div>
+		<div class="col-md-1 col-sm-1 col-xs-1"><b>Version</b></div>
 		<div class="col-md-1 col-sm-2 col-xs-2"><b>View</b></div>
 		<div class="col-md-1 col-sm-2 col-xs-2"><b>Delete</b></div>
 	</div>
@@ -16,7 +18,7 @@
 		</div>
 		<div class="col-md-1 col-sm-2 col-xs-2"><app-toggle-switch
 			[div_id]="'reg_'+device.deviceID"
-			[is_checked]="device.config.registered"
+			[is_checked]="device.registered"
 			(toggle)="toggleRegistered(device)"
 			></app-toggle-switch></div>
 		<div class="col-md-2 col-sm-3 col-xs-3"> {{ device.deviceID }} </div>
@@ -25,6 +27,18 @@
 				(keyup.enter)="updateAlias(device)"
 			>
 		</div>
+		<div class="col-md-2 col-sm-3 col-xs-3">
+			<select [ngModel]="device.typeID"
+				(ngModelChange)="setDeviceType(device._id,$event)"
+				[name]="'type_'+device.deviceID"
+       				[disabled]="device.registered"
+				>
+				<option *ngFor="let type of deviceTypes"
+					[value]="type.typeID"
+				       >{{type.alias}}</option>
+			</select>
+		</div>
+		<div class="col-md-1 col-sm-1 col-xs-1">{{device.sw_version}}</div>
 		<div class="col-md-1 col-sm-2 col-xs-2">
 			<a class="btn btn-sm btn-info" [class.hidden]="!device.online"
       				[routerLink]="['/pages/user/device-detail',device._id]" >View</a>
