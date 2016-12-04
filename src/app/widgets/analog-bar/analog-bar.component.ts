@@ -7,7 +7,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   inputs: [
 	'min: min',
 	'max: max',
-	'val: val'
+	'val: val',
+	'base_hue: base_hue'
   ]
 })
 export class AnalogBarComponent implements OnInit {

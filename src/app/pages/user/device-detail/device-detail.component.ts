@@ -6,7 +6,6 @@ import { StreamService } from '../../../services/stream.service';
 import {Observable} from 'rxjs/Observable';
 
 const dataRefreshMs = 5000;
-const chartRefreshMs = 60000;
 
 
 @Component({
@@ -17,29 +16,13 @@ const chartRefreshMs = 60000;
 export class DeviceDetailComponent implements OnInit {
 	private id: string;
 	private device: Device;
-	private pinList: any[];
-	private pinMap: any;
+	private ioList: any[];
 	private name: string;
+	private chartSlots: any;
+	private selectedChartSlots: any;
 	private routeSubscription: any;
 	private dataSubscription: any;
-	private chartSubscription: any;
 	private dataTimerSubscription: any;
-	private chartTimerSubscription: any;
-
-	private chartOptions = {
-		high:		1024,
-		low:		0,
-		showArea:	false,
-		showLine:	true,
-		showPoint:	false,
-		lineSmooth:	true,
-		height:		'300px',
-		chartPadding: {
-			right: 40
-		}
-	}
-	private chartData = { series: []};
-	private chartDataStr = JSON.stringify(this.chartData);
 
 	constructor(
 		private	route: ActivatedRoute,
@@ -49,11 +32,31 @@ export class DeviceDetailComponent implements OnInit {
 
 	ngOnInit() {
 		this.device = new Device();
-		this.pinList = [];
-		this.pinMap = {};
+		this.ioList = [];
 		this.refreshRoute();
+		this.selectedChartSlots = {};
+		this.chartSlots = [];
 	}
 
+
+	private toggleGraphSlot(io_name,slot) {
+		var id = io_name+'_'+slot.slot_name;
+		if (this.selectedChartSlots[id]) {	// Exists, so remove
+			delete this.selectedChartSlots[id];
+		} else {			// Does not exist, so add
+			this.selectedChartSlots[id] = {
+				_id: this.device._id,
+				deviceID: this.device.deviceID,
+				io_name: io_name,
+				slot_name: slot.slot_name,
+			};
+		}
+		var cs = [];
+		for (var s in this.selectedChartSlots) {
+			cs.push(this.selectedChartSlots[s]);
+		}
+		this.chartSlots = cs;
+	}
 	ngOnDestroy() {
 		this.routeSubscription.unsubscribe();
 		this.stopRefresh();
@@ -61,57 +64,23 @@ export class DeviceDetailComponent implements OnInit {
 	private refreshAll():void {
 		this.stopRefresh();
 		this.doDataTimer(1000);
-		this.doChartTimer(1000);
 	}
 	private doDataTimer(time):void {
+		if (this.dataTimerSubscription) {this.dataTimerSubscription.unsubscribe(); }
 		this.dataTimerSubscription = Observable.timer(time).first()
 			.subscribe(() => this.refreshData());
 	}
 	private refreshData():void {
-		//console.log("Refresh Device Data");
 		this.dataSubscription = this.devicesService.getOne(this.id)
 			.subscribe(d => {
 				this.device = d;
-				this.loadPinList(d);
+				this.loadIOList(d);
 				this.setName(d);
 				this.doDataTimer(dataRefreshMs);
 			});
 	}
-	private chartReady(event) {
-		console.log("Chart Ready");
-		this.doChartTimer(2000);
-	}
-	private doChartTimer(time):void {
-		this.chartTimerSubscription = Observable.timer(time).first()
-			.subscribe(() => this.refreshChart());
-	}
-	private refreshChart():void {
-		//console.log("Refresh Device Data");
-		var deviceID = this.device.deviceID;
-		var pin = "A0";
-		var start_h = -4;
-		var start_m = 0;
-		var end_h = 0;
-		var end_m = 0;
-		this.chartSubscription = this.streamService.getAll(deviceID,pin,start_h,start_m,end_h,end_m)
-			.subscribe(items => {
-				var points = [];
-				for (var i in items) {
-					var point = {
-						x: items[i].timestamp,
-						y: items[i].val
-					}
-					points.push(point);
-				}
-				this.chartData = {
-					series:	[points]
-				}
-				this.chartDataStr = JSON.stringify(this.chartData);
-				console.log(this.chartDataStr);
-				this.doChartTimer(chartRefreshMs);
-			});
-	}
-		
+
+
 
 	private refreshRoute():void {
 		//when calling routes change
@@ -129,65 +98,70 @@ export class DeviceDetailComponent implements OnInit {
 		}
 	}
 
-	private loadPinList(d):void {
-		this.pinList = [];
-		this.pinMap = {};
-		//console.log( "device: ",JSON.stringify(d));
+	private loadIOList(d):void {
+		this.ioList = [];
 		// Load Config
-		//console.log( "config: ",JSON.stringify(d.config.pins));
-		var cnt=0;
-		for (var id in d.config.pins) {
-			var pin = d.config.pins[id];
-			pin.id = id;
-			pin.req_val = "-";
-			pin.cur_val = "-";
-			this.pinList.push(pin);
-			this.pinMap[id]=cnt++;
-		}
-		// Load Requested  Val
-		if (d.req_state.pins) {
-			//console.log( "req_state: ",JSON.stringify(d.req_state.pins));
-			for (var id in d.req_state.pins) {
-				var v = d.req_state.pins[id].val;
-				var i = this.pinMap[id];
-				this.pinList[i].req_val = v;
+		for (var io_name in d.device_config.io) {
+			var item = {
+				io_name:	io_name,
+				slots:		[],
+				type:		d.device_config.io[io_name].type,
+				mode:		d.device_config.io[io_name].mode
 			}
+
+			for (var slot_name in d.display_config.io[io_name].slots) {
+				var slot = d.display_config.io[io_name].slots[slot_name];
+				slot.slot_name = slot_name;
+				slot.id = io_name+'_'+slot_name;
+				// Set defaults if needed
+				if (slot.min == null ) {slot.min = 0}	
+				if (slot.max == null ) {slot.max = 1024}	
+				if (slot.color == null ) {slot.color = "#fff"}	
+				if (slot.hue == null ) {slot.hue = "60"}	
+				// Requested state
+				if (d.req_state.io[io_name]) {
+					slot.req_val = d.req_state.io[io_name].slots[slot_name].val;
+				}
+				// Current state
+				if (d.cur_state.io[io_name]) {
+					slot.cur_val = d.cur_state.io[io_name].slots[slot_name].val;
+				}
+				// Streamable?
+				if (d.device_config.io[io_name].slots[slot_name].stream) {
+					slot.streamable = true;
+				}
+				item.slots.push(slot);
+			}
+
+			this.ioList.push(item);
 		}
-		// Load Current Val
-		if (d.cur_state.pins) {
-			//console.log("cur_state: ", JSON.stringify(d.cur_state.pins));
-			for (var id in d.cur_state.pins) {
-				var v = d.cur_state.pins[id].val;
-				var i = this.pinMap[id];
-				this.pinList[i].cur_val = v;
+	}
+
+	private	update_req_val(io_name,slot_name,newVal) {
+		for (var i in this.ioList) {
+			if (this.ioList[i].io_name == io_name) {
+				for (var s in this.ioList[i].slots) {
+					if (this.ioList[i].slots[s].slot_name == slot_name) {
+						this.ioList[i].slots[s].req_val = newVal;
+						return;
+					}
+				}
 			}
 		}
 	}
-	private findPin(pin) {
-		var items = this.pinList;
-		for (var i=0;i<items.length;i++) {
-			if (items[i].id = pin) {
-				return i;
-			}
-		}
-		return null;
-	}
-	private toggleRequested(p) {
+
+	private toggleRequested(io_name,slot_name,old_req_val) {
 		this.dataSubscription.unsubscribe();
 		this.dataTimerSubscription.unsubscribe();
-		var newVal = !p.req_val;
-		//console.log("Toggle pin: ",p.id);
-		var i=this.findPin(p.id);
-		this.devicesService.setPin(this.id,p.id,newVal).subscribe(data => {
-			if (i != null) { this.pinList[i].req_val = newVal; }
+		var newVal = !old_req_val;
+		this.devicesService.setIO(this.id,io_name,slot_name,newVal).subscribe(data => {
+			this.update_req_val(io_name,slot_name,newVal);
 			this.refreshData();
 		});
 	}
 	private stopRefresh():void {
 		if (this.dataSubscription)		{ this.dataSubscription.unsubscribe(); }
-		if (this.chartSubscription)		{ this.chartSubscription.unsubscribe(); }
 		if (this.dataTimerSubscription)		{ this.dataTimerSubscription.unsubscribe(); }
-		if (this.chartTimerSubscription)	{ this.chartTimerSubscription.unsubscribe(); }
 	}
 
 }

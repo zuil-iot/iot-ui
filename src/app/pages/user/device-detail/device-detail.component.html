@@ -1,52 +1,63 @@
 <H2>Device: {{ name }}</H2>
 <div class="device_info">
 	<h4>Online: </h4>
-	<app-bool-icon [state]="device.online"></app-bool-icon>
+	<app-bool-circle [state]="device.online"></app-bool-circle>
+	<button class="btn btn-warning btn-xs" (click)="stopRefresh()" >Stop Refresh</button>
 </div>
 <div class="container">
-	<div class="pin_configs" *ngFor='let pin of pinList'>
-		<div class="row">
-			<div class="col-md-1 col-sm-1 hidden-xs">{{pin.id}}</div>
-			<div class="col-md-2 col-sm-2 col-xs-4">{{pin.alias}}</div>
-			<div class="col-md-1 hidden-sm hidden-xs">{{pin.type}}</div>
-			<div class="col-md-1 hidden-sm hidden-xs">{{pin.mode}}</div>
+	<div class="row item_header">
+		<div class="col-md-1 col-sm-1 hidden-xs">I/O</div>
+		<div class="col-md-2 col-sm-2 col-xs-4">Label</div>
+		<div class="col-md-1 col-sm-1 hidden-xs">Type</div>
+		<div class="col-md-1 col-sm-1 hidden-xs">Mode</div>
+		<div class="col-md-1 col-sm-1 col-xs-1">Graph?</div>
+		<div class="col-md-3 col-sm-3 col-xs-4">State</div>
+	</div>
+	<div class="item_detail" *ngFor='let item of ioList'>
+		<div class="row" *ngFor='let slot of item.slots'>
+			<div class="col-md-1 col-sm-1 hidden-xs">{{item.io_name}}</div>
+			<div class="col-md-2 col-sm-2 col-xs-4">{{slot.label}}</div>
+			<div class="col-md-1 hidden-sm hidden-xs">{{item.type}}</div>
+			<div class="col-md-1 hidden-sm hidden-xs">{{item.mode}}</div>
+			<!-- Graph? -->
+			<div *ngIf="slot.streamable" class="col-md-1 col-sm-1 col-xs-1">
+				<input type="checkbox"
+					[checked]="selectedChartSlots[slot.id]"
+	   				(change) ="toggleGraphSlot(item.io_name,slot)"
+					>
+			</div>
+			<div *ngIf="!slot.streamable" class="col-md-1 col-sm-1 col-xs-1"></div>
 			<!-- Current state -->
-			<div *ngIf="pin.type == 'gpio'" class="col-md-1 col-sm-1 col-xs-1">
-				<app-bool-icon [state]="pin.cur_val"></app-bool-icon>
+			<div *ngIf="item.type == 'gpio'" class="col-md-1 col-sm-1 col-xs-1">
+				<app-bool-circle [state]="slot.cur_val" [color]="slot.color"></app-bool-circle>
 			</div>
-			<div *ngIf="pin.type == 'adc'" class="col-md-3 col-sm-3 col-xs-5">
-				<app-analog-bar min="0" max="1024" [val]="pin.cur_val"></app-analog-bar>
+			<div *ngIf="item.type == 'adc' || item.type == 'dht'" class="col-md-3 col-sm-3 col-xs-5">
+				<app-analog-bar
+					[min]="slot.min"
+					[max]="slot.max"
+					[val]="slot.cur_val"
+					[base_hue]="slot.hue"
+					></app-analog-bar>
 			</div>
-			<div *ngIf="pin.type != 'gpio' && pin.type != 'adc'" class="col-md-1 col-sm-1 col-xs-1">{{pin.cur_val}}</div>
+			<div *ngIf="item.type != 'gpio' && item.type != 'adc' && item.type != 'dht'"
+				class="col-md-1 col-sm-1 col-xs-1">{{slot.cur_val}}</div>
 			<!-- Requested state -->
-			<div *ngIf="pin.mode == 'out'" class="col-md-2 col-sm-2 col-xs-3">
+			<div *ngIf="item.mode == 'out'" class="col-md-2 col-sm-2 col-xs-3">
 				<app-toggle-switch
-					 [div_id]="'px_'+pin.id"
-					 [is_checked]="pin.req_val"
-					 (toggle)="toggleRequested(pin)"
+					 [div_id]="'px_'+slot.id"
+					 [is_checked]="slot.req_val"
+					 (toggle)="toggleRequested(item.io_name,slot.slot_name,slot.req_val)"
 				></app-toggle-switch>
 			</div>
-			<div *ngIf="pin.mode != 'out' && pin.type != 'adc'" class="col-md-2 col-sm-2 col-xs-3"></div>
+			<div *ngIf="item.mode != 'out' && item.type != 'adc'" class="col-md-2 col-sm-2 col-xs-3"></div>
 		</div>
 	</div>
-	<div class="row"><div class="col-sm-12">
-		<div class="bottom_buttons visible-md visible-lg">
-			<hr />
-			<button class="btn btn-warning btn-xs" (click)="stopRefresh()" >Stop Refresh</button>
-			<hr />
-		</div>
-	</div></div>
-	<div class="row"><div class="col-sm-12">
-		<app-chartist-chart
-			chartClass="ct-chart"
-			chartType="Line"
-			[chartData]="chartData"
-			[chartOptions]="chartOptions"
-   			(onChartReady)="chartReady($event);"
-			>
-		</app-chartist-chart>
-	</div></div>
-	<div class="row"><div class="col-sm-12">
-			<pre>{{chartDataStr}}</pre>
+</div>
+<!-- Chart -->
+<div class="container">
+	<div class="row"><div class="slots_chart col-sm-10">
+		<app-slots-chart
+		       [chartSlots]="chartSlots"
+		></app-slots-chart>
 	</div></div>
 </div>

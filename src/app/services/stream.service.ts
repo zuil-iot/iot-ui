@@ -10,10 +10,11 @@ export class StreamService {
 	constructor(private api:IotApiService) {
 	}
 
-	getAll(deviceID,pin,start_h,start_m,end_h,end_m) {
+	getAll(deviceID,io_name,slot_name,start_h,start_m,end_h,end_m) {
 		var path = this.path_base;
 		path+="?deviceID="+deviceID;
-		path+="&pin="+pin;
+		path+="&io_name="+io_name;
+		path+="&slot_name="+slot_name;
 		path+="&start_h="+start_h;
 		path+="&start_m="+start_m;
 		path+="&end_h="+end_h;

@@ -8,6 +8,7 @@ import { AlertModule, DatepickerModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { AngularFireModule, FirebaseAppConfig } from 'angularfire2';
 import {ToasterModule} from 'angular2-toaster/angular2-toaster';
 import { environment } from '../environments/environment';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 let modules = [
   AlertModule,
@@ -17,7 +18,8 @@ let modules = [
   HttpModule,
   RouterModule,
   AngularFireModule.initializeApp(environment.firebase),
-  ToasterModule
+  ToasterModule,
+  ChartsModule
 ];
 
 // Widgets
@@ -29,9 +31,11 @@ import { TasksBoxComponent } from "./widgets/tasks-box";
 import { UserBoxComponent } from "./widgets/user-box";
 import { ToggleSwitchComponent } from './widgets/toggle-switch/toggle-switch.component';
 import { BoolIconComponent } from './widgets/bool-icon/bool-icon.component';
+import { BoolCircleComponent } from './widgets/bool-circle/bool-circle.component';
 import { AnalogBarComponent } from './widgets/analog-bar/analog-bar.component';
 import { TachometerComponent } from './widgets/tachometer/tachometer.component';
 import { ChartistChartComponent } from './widgets/chartist-chart/chartist-chart.component';
+import { SlotsChartComponent } from './widgets/slots-chart/slots-chart.component';
 
 let widgets = [
   AppComponent,
@@ -43,9 +47,11 @@ let widgets = [
   UserBoxComponent,
   ToggleSwitchComponent,
   BoolIconComponent,
+  BoolCircleComponent,
   AnalogBarComponent,
   TachometerComponent,
-  ChartistChartComponent
+  ChartistChartComponent,
+  SlotsChartComponent
 ];
 
 // Services

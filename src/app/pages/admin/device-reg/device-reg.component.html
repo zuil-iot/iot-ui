@@ -40,12 +40,15 @@
 		</div>
 		<div class="col-md-1 col-sm-1 col-xs-1">{{device.sw_version}}</div>
 		<div class="col-md-1 col-sm-2 col-xs-2">
-			<a class="btn btn-sm btn-info" [class.hidden]="!device.online"
-      				[routerLink]="['/pages/user/device-detail',device._id]" >View</a>
+			<a class="btn btn-sm btn-info"
+				[class.disabled]="!device.online"
+				[routerLink]="['/pages/user/device-detail',device._id]"
+				>View</a>
 		</div>
 		<div class="col-md-1 col-sm-2 col-xs-2">
 			<button type="button"
 				class="btn btn-sm btn-danger"
+       				[disabled]="device.registered"
 				(click)="delete(device._id)">Delete</button>
 		</div>
 	</div>

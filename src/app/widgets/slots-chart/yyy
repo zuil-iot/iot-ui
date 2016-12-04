@@ -1,0 +1,55 @@
+        private doChartTimer(time):void {
+                if (this.chartTimerSubscription) {this.chartTimerSubscription.unsubscribe(); }
+                this.chartTimerSubscription = Observable.timer(time).first()
+                        .subscribe(() => this.refreshChart());
+        }
+        private chartSlotCount=0;
+        private tmpChartData = { series: [] }
+
+        private getChartData(deviceID,id,cs,start_h,start_m,end_h,end_m) {
+                this.chartSubscriptions[id] = this.streamService.getAll(
+                        deviceID,cs.io_name,cs.slot_name,start_h,start_m,end_h,end_m)
+                        .subscribe(items => {
+                                console.log("Got ",id);
+                                var points = [];
+                                for (var i in items) {
+                                        var point = {
+                                                x: items[i].timestamp,
+                                                y: items[i].val
+                                        }
+                                        points.push(point);
+                                }
+                                var tmpLine = {
+                                        name: cs.label,
+                                        class_name: 'line_'+id,
+                                        color: cs.color,
+                                        data: points
+                                };
+                                this.tmpChartData.series.push(tmpLine);
+                                if ((this.chartSlotCount+=1) >= this.validChartSlots) {
+                                        this.chartData = this.tmpChartData;
+                                        this.chartDataStr = JSON.stringify(this.chartData);
+                                        console.log(this.chartDataStr);
+                                        console.log("Update chart");
+                                        this.doChartTimer(chartRefreshMs);
+                                }
+
+                        })
+        }
+        private refreshChart():void {
+                var deviceID = this.device.deviceID;
+                var start_h = -4;
+                var start_m = -0;
+                var end_h = 0;
+                var end_m = 0;
+                this.tmpChartData = { series: [] }
+                console.log(JSON.stringify(this.tmpChartData));
+                this.chartSlotCount=0;
+                for (var id in this.chartSlots) {
+                        var cs = this.chartSlots[id];
+                        if (cs) {
+                                console.log("Getting chart data for ",id,cs.io_name,cs.slot_name);
+                                this.getChartData(deviceID,id,cs,start_h,start_m,end_h,end_m);
+                        }
+                }
+        }

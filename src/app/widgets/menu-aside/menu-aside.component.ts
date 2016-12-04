@@ -105,6 +105,13 @@ export class MenuAsideComponent implements OnInit {
           "icon": "microchip",
 	  "external": true,
 	  "target": "_blank"
+        },
+        {
+          "title": "Chart.js",
+          "link": ['http://www.chartjs.org/docs'],
+          "icon": "area-chart",
+	  "external": true,
+	  "target": "_blank"
         }
       ]
     }

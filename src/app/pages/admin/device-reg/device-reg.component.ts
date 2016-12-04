@@ -50,6 +50,7 @@ export class DeviceRegComponent implements OnInit {
 		console.log("Refresh");
 		this.dataSubscription = this.devicesService.getAll()
 			.subscribe(devices => {
+				console.log(JSON.stringify(devices));
 				this.devices = devices;
 				this.doTimer();
 			});
@@ -70,7 +71,6 @@ export class DeviceRegComponent implements OnInit {
 		var i=this.findItem(id);
 		this.devicesService.setType(id,type).subscribe(data => {
 			if (i != null ) { this.devices[i].typeID = type; }
-			console.log("Set type for: ",d.deviceID, " to ",this.devices[i].typeID);
 		});
 	}
 	toggleRegistered (d) {

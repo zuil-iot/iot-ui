@@ -1,21 +1,19 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-bool-icon',
-  templateUrl: './bool-icon.component.html',
-  styleUrls: ['./bool-icon.component.css'],
+  selector: 'app-bool-circle',
+  templateUrl: './bool-circle.component.html',
+  styleUrls: ['./bool-circle.component.css'],
   inputs: [
 	'state: state',
-	'on_icon: on_icon',
-	'off_icon: off_icon',
+	'size: size',
 	'color: color'
   ]
 })
-export class BoolIconComponent implements OnInit {
-	on_icon:string;
-	off_icon:string;
+export class BoolCircleComponent implements OnInit {
 	state:boolean;
 	color:string;
+	size:string;
 
 	@Output() toggle = new EventEmitter();
 

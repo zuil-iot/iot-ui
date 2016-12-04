@@ -7,3 +7,7 @@
 .device_info h4 {
 	display: inline-block;
 }
+.slots_chart {
+	margin-top:	40px;
+	height:		300px;
+}

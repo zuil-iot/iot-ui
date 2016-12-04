@@ -48,9 +48,9 @@ export class DevicesService {
 		var payload = { alias: alias};
 		return this.api.put(path,payload);
 	}
-	setPin(id,pin,val) {
-		var path = this.path_base+'/'+id+'/pin';
-		var payload = { pin: pin, val: val};
+	setIO(id,io_name,slot_name,val) {
+		var path = this.path_base+'/'+id+'/set';
+		var payload = { io_name: io_name, slot_name: slot_name, val: val};
 		return this.api.put(path,payload);
 	}
 

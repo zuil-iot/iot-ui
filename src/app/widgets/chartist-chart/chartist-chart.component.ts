@@ -11,8 +11,7 @@ import {
     OnDestroy,
 } from '@angular/core';
 
-import {Chartist} from './chartist-chart.loader.ts';
-
+const Chartist = require('chartist');
 
 @Component({
   selector: 'app-chartist-chart',
@@ -43,6 +42,7 @@ export class ChartistChartComponent implements OnInit {
 	private chart;
 
 	ngAfterViewInit() {
+
 		this.chart = new Chartist[this.chartType](
 			this._selector.nativeElement,
 			this.chartData,
