@@ -105,7 +105,7 @@ export class DeviceDetailComponent implements OnInit {
 			var item = {
 				io_name:	io_name,
 				slots:		[],
-				type:		d.device_config.io[io_name].type,
+				pin_type:	d.device_config.io[io_name].type,
 				mode:		d.device_config.io[io_name].mode
 			}
 
@@ -118,6 +118,7 @@ export class DeviceDetailComponent implements OnInit {
 				if (slot.max == null ) {slot.max = 1024}	
 				if (slot.color == null ) {slot.color = "#fff"}	
 				if (slot.hue == null ) {slot.hue = "60"}	
+				if (slot.type == null ) {slot.type = "na"}	
 				// Requested state
 				if (d.req_state.io[io_name]) {
 					slot.req_val = d.req_state.io[io_name].slots[slot_name].val;

@@ -10,14 +10,14 @@
 		<div class="col-md-2 col-sm-2 col-xs-4">Label</div>
 		<div class="col-md-1 col-sm-1 hidden-xs">Type</div>
 		<div class="col-md-1 col-sm-1 hidden-xs">Mode</div>
-		<div class="col-md-1 col-sm-1 col-xs-1">Graph?</div>
+		<div class="col-md-1 col-sm-1 col-xs-1">Graph</div>
 		<div class="col-md-3 col-sm-3 col-xs-4">State</div>
 	</div>
 	<div class="item_detail" *ngFor='let item of ioList'>
 		<div class="row" *ngFor='let slot of item.slots'>
 			<div class="col-md-1 col-sm-1 hidden-xs">{{item.io_name}}</div>
 			<div class="col-md-2 col-sm-2 col-xs-4">{{slot.label}}</div>
-			<div class="col-md-1 hidden-sm hidden-xs">{{item.type}}</div>
+			<div class="col-md-1 hidden-sm hidden-xs">{{item.pin_type}}</div>
 			<div class="col-md-1 hidden-sm hidden-xs">{{item.mode}}</div>
 			<!-- Graph? -->
 			<div *ngIf="slot.streamable" class="col-md-1 col-sm-1 col-xs-1">
@@ -28,10 +28,10 @@
 			</div>
 			<div *ngIf="!slot.streamable" class="col-md-1 col-sm-1 col-xs-1"></div>
 			<!-- Current state -->
-			<div *ngIf="item.type == 'gpio'" class="col-md-1 col-sm-1 col-xs-1">
+			<div *ngIf="slot.type == 'bool'" class="col-md-1 col-sm-1 col-xs-1">
 				<app-bool-circle [state]="slot.cur_val" [color]="slot.color"></app-bool-circle>
 			</div>
-			<div *ngIf="item.type == 'adc' || item.type == 'dht'" class="col-md-3 col-sm-3 col-xs-5">
+			<div *ngIf="slot.type == 'int' && item.mode == 'in'" class="col-md-3 col-sm-3 col-xs-5">
 				<app-analog-bar
 					[min]="slot.min"
 					[max]="slot.max"
@@ -39,17 +39,20 @@
 					[base_hue]="slot.hue"
 					></app-analog-bar>
 			</div>
-			<div *ngIf="item.type != 'gpio' && item.type != 'adc' && item.type != 'dht'"
-				class="col-md-1 col-sm-1 col-xs-1">{{slot.cur_val}}</div>
+			<div *ngIf="slot.type == 'int' && item.mode == 'out'" class="col-md-3 col-sm-3 col-xs-5">
+				{{slot.cur_val}}
+			</div>
+			<div *ngIf="slot.type != 'bool' && slot.type != 'int'" class="col-md-1 col-sm-1 col-xs-1">
+				{{slot.cur_val}}
+			</div>
 			<!-- Requested state -->
-			<div *ngIf="item.mode == 'out'" class="col-md-2 col-sm-2 col-xs-3">
+			<div *ngIf="slot.type == 'bool' && item.mode == 'out'" class="col-md-2 col-sm-2 col-xs-3">
 				<app-toggle-switch
 					 [div_id]="'px_'+slot.id"
 					 [is_checked]="slot.req_val"
 					 (toggle)="toggleRequested(item.io_name,slot.slot_name,slot.req_val)"
 				></app-toggle-switch>
 			</div>
-			<div *ngIf="item.mode != 'out' && item.type != 'adc'" class="col-md-2 col-sm-2 col-xs-3"></div>
 		</div>
 	</div>
 </div>
